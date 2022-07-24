@@ -1,0 +1,39 @@
+@echo off
+echo 自动整理计算书
+echo --------------------- 输入计算书路径 --------------------------------------
+set /p source=输入计算书路径
+rd /s /q %source%\附图
+md %source%\附图\基础\拉梁
+md %source%\附图\上部结构\板配筋 
+md %source%\附图\上部结构\截面 
+md %source%\附图\上部结构\荷载
+md %source%\附图\上部结构\轴压比 
+md %source%\附图\上部结构\梁配筋 
+
+set ch1=冲切
+set ch2=地基土无震最大反力
+set ch3=地基土有震最大反力
+set ch4=基础配筋
+set ch5=计算面积
+set ch6=WPJW
+set ch7=墙柱节点输入及楼面荷载平面图
+set ch8=WZYB
+set ch9=WPJ
+setlocal enabledelayedexpansion
+
+for /r %%a in (*.dwg) do (
+set "str=%%a"
+if not "!str:%ch1%=!" == "%%a" copy "%%a" %source%\附图\基础   
+if not "!str:%ch2%=!" == "%%a" copy "%%a" %source%\附图\基础   
+if not "!str:%ch3%=!" == "%%a" copy "%%a" %source%\附图\基础   
+if not "!str:%ch4%=!" == "%%a" copy "%%a" %source%\附图\基础   
+if not "!str:%ch5%=!" == "%%a" copy "%%a" %source%\附图\上部结构\板配筋   
+if not "!str:%ch6%=!" == "%%a" copy "%%a" %source%\附图\上部结构\截面   
+if not "!str:%ch7%=!" == "%%a" copy "%%a" %source%\附图\上部结构\荷载   
+if not "!str:%ch8%=!" == "%%a" copy "%%a" %source%\附图\上部结构\轴压比   
+if not "!str:%ch9%=!" == "%%a" copy "%%a" %source%\附图\上部结构\梁配筋   
+)
+del /s /q %source%\附图\上部结构\梁配筋\*WPJW* 
+start "" "%source%\附图"
+echo success
+PAUSE
